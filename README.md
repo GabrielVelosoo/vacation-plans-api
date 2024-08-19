@@ -235,9 +235,11 @@ Authorization: Bearer {your-token}
      CREATE DATABASE vacation_plans;
      ```
 
+     **NOTE**: If you create the database with a different name, don't forget to configure the database variables in the .env file!
+
      After that, you have created the database, now just run the migrations with `php artisan migrate`.<br><br>
  
-3. **Retrieve Logged-In User**<br>
+1. **Retrieve Logged-In User**<br>
    • **Method:** GET<br>
    • **URL:** `/api/user`<br>
    • **Success Response:**<br>
@@ -255,7 +257,7 @@ Authorization: Bearer {your-token}
      }
      ```
      
-4. **Logout**<br>
+2. **Logout**<br>
    • **Method:** POST<br>
    • **URL:** `/api/logout`<br>
    • **Success Response:**<br>
