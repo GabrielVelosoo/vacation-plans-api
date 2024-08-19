@@ -173,7 +173,7 @@ Authorization: Bearer {your-token}
    
      ```
      {
-       "token": {your-token}
+       "token": "{your-token}"
      }
      ```
      
