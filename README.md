@@ -196,13 +196,15 @@ Authorization: Bearer {your-token}
 
      **Accessing MySQL Container**
 
-     Use `docker ps` to list your containers, then identify the name or ID of the MySQL container and enter it with:
+     Use `docker ps` to list the containers:
 
      ```
      CONTAINER ID     IMAGE                   COMMAND                  CREATED          STATUS          PORTS                   NAMES
      <container-id>   vacation-plans-api-app  "docker-php-entrypoi…"   30 minutes ago   Up 30 minutes   0.0.0.0:8000->80/tcp    <container-name>
      <container-id>   mysql:8.0.39            "docker-entrypoint.s…"   30 minutes ago   Up 30 minutes   0.0.0.0:3306->3306/tcp  <container-name>
      ```
+
+     Enter the MySQL container:
 
      ```
      docker exec -it <container-name-or-id> bash
