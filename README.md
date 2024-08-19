@@ -82,6 +82,8 @@ Ensure that Docker and Docker Compose are working correctly to set up and run th
    
    ```
    docker exec -it <container-name-or-id> bash
+   ```
+   ```
    composer install
    ```
 
@@ -286,6 +288,8 @@ Authorization: Bearer {your-token}
 
 ```
 Accept: application/json
+```
+```
 Authorization: Bearer {your-token} #Include Bearer and then a space and your token
 ```
 
@@ -552,6 +556,8 @@ To run the unit tests, use PHPUnit:
 
 ```
 docker exec -it <container-name-or-id> bash
+```
+```
 php artisan test
 ```
 
