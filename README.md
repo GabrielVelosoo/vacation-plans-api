@@ -157,7 +157,7 @@ Authorization: Bearer {your-token}
 **NOTE**: I recommend using [Postman](https://www.postman.com/downloads/) to test the API.
 
 1. **Generate Access Token**<br>
-   • **Method:** POST<br>
+   • **Method:** `POST`<br>
    • **URL:** `/api/login`<br>
    • **Request Body:**<br>
    
@@ -197,7 +197,13 @@ Authorization: Bearer {your-token}
      **Accessing MySQL Container**
 
      Use `docker ps` to list your containers, then identify the name or ID of the MySQL container and enter it with:
-   
+
+     ```
+     CONTAINER ID     IMAGE                   COMMAND                  CREATED          STATUS          PORTS                   NAMES
+     <container-id>   vacation-plans-api-app  "docker-php-entrypoi…"   30 minutes ago   Up 30 minutes   0.0.0.0:8000->80/tcp    <container-name>
+     <container-id>   mysql:8.0.39            "docker-entrypoint.s…"   30 minutes ago   Up 30 minutes   0.0.0.0:3306->3306/tcp  <container-name>
+     ```
+
      ```
      docker exec -it <container-name-or-id> bash
      ```
@@ -240,7 +246,7 @@ Authorization: Bearer {your-token}
      After that, you have created the database, now just run the migrations with `php artisan migrate`.<br><br>
  
 1. **Retrieve Logged-In User**<br>
-   • **Method:** GET<br>
+   • **Method:** `GET`<br>
    • **URL:** `/api/user`<br>
    • **Success Response:**<br>
    
@@ -258,7 +264,7 @@ Authorization: Bearer {your-token}
      ```
      
 2. **Logout**<br>
-   • **Method:** POST<br>
+   • **Method:** `POST`<br>
    • **URL:** `/api/logout`<br>
    • **Success Response:**<br>
    
