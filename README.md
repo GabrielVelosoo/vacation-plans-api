@@ -1,90 +1,100 @@
-<!-- title -->
 <h1 align="center"> 
 	   VACATION-PLANS-API 
 </h1>
 
-<!-- Description: -->
-## Sobre o projeto
+---
 
-<!-- EXPLICA O MOTIVO DO PROJETO -->
-vacation-plans-api é um projeto criado para o processo seletivo da Buzzvel.
+<!-- ---------------------------------------------------------------------- -->
 
-O desafio proposto para este projeto era a criação de uma API RESTful para gerenciar planos de férias para o ano de 2024. Neste projeto, teríamos que implementar operações CRUD (Criar, Ler, Atualizar, Excluir) para planos de férias, garantir a autenticação segura dos usuários, validar as entradas para garantir integridade dos dados e permitir a geração de documentos PDF com os detalhes dos planos.
+## About the Project
 
-A API foi desenvolvida utilizando Laravel, Docker e MySQL, e inclui endpoints para criar, recuperar, atualizar e excluir planos de férias, bem como para gerar PDFs detalhados dos planos. O objetivo é demonstrar habilidades no desenvolvimento de APIs, manuseio de dados e boas práticas de programação, além de fornecer uma solução robusta e bem documentada para o gerenciamento de planos de férias.
+`vacation-plans-api` is a project created for the Buzzvel recruitment process.
 
-<!-- LINHA DE DIVISÃO: -->
+The challenge for this project was to create a RESTful API to manage vacation plans for the year 2024. In this project, we had to implement CRUD operations (Create, Read, Update, Delete) for vacation plans, ensure secure user authentication, validate inputs to ensure data integrity, and enable the generation of PDF documents with plan details.
+
+The API was developed using [Laravel](https://laravel.com/), [Docker](https://www.docker.com/), and [MySQL](https://www.mysql.com/), and includes endpoints to create, retrieve, update, and delete vacation plans, as well as to generate detailed PDFs of the plans. The goal is to demonstrate skills in API development, data handling, and best programming practices, in addition to providing a robust and well-documented solution for vacation plan management.
 
 ---
 
 <!-- ---------------------------------------------------------------------- -->
 
-<!-- MODELO DE PRÉ REQUISITOS -->
-## Pré-requisitos
+## Prerequisites
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:<br>
+Before you begin, you will need to have the following tools installed on your machine:<br>
 • [Git](https://git-scm.com/downloads)<br>
-• [Docker](https://www.docker.com/products/docker-desktop) e [Docker Compose](https://docs.docker.com/compose/install/)<br>
+• [Docker](https://www.docker.com/products/docker-desktop) and [Docker Compose](https://docs.docker.com/compose/install/)<br>
 
-Além disso, é recomendável ter um editor para trabalhar com o código, como [VSCode](https://code.visualstudio.com/).
+Additionally, it is recommended to have an editor for working with the code, such as [Visual Studio Code](https://code.visualstudio.com/).
 
-Certifique-se de que o Docker e o Docker Compose estejam funcionando corretamente para configurar e executar o ambiente do projeto. Não é necessário instalar o PHP ou o MySQL separadamente, pois eles são configurados automaticamente dentro dos contêineres Docker.
+Ensure that Docker and Docker Compose are working correctly to set up and run the project environment. There is no need to install PHP or MySQL separately, as they are configured automatically within the Docker containers.
 
 ---
 
 <!-- ---------------------------------------------------------------------- -->
 
-<!-- MODELO DE COMO EXECUTAR O PROJETO -->
-## Configuração do ambiente
+## Setting Up the Environment
 
-1. **Baixar o Projeto**
+1. **Download the Project**
 
-   Clone o repositório do projeto para sua máquina local:
+   Clone the project repository to your local machine:
+   
    ```
    git clone https://github.com/GabrielVelosoo/vacation-plans-api.git
    ```
    
-   Depois acesse o diretório do projeto
+   Navigate to the project directory:
+   
    ```
    cd vacation-plans-api
    ```
    
-3. **Configurar e Executar o Docker**
+2. **Configure and Run Docker**
 
-   Certifique-se de que o Docker e o Docker Compose estejam instalados e funcionando corretamente.
+   Ensure that Docker and Docker Compose are installed and working correctly.
    
-   • Subir os Contêineres
+   • Start the Containers<br><br>
 
-   Execute o comando abaixo para construir as imagens e iniciar os contêineres:
+   Run the following command to build the images and start the containers:
    
    ```
    docker-compose up -d
    ```
 
-   • Instalar as Dependências do PHP
+   • Stop the Containers<br><br>
 
-   Utilize o comando `docker ps` para listar os containers, você vai ter um resultado parecido com este:
+   When not in use, stop the containers with:
+
    ```
-   CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS          PORTS                   NAMES
-   b620bb4e4c28   vacation-plans-api-app "docker-php-entrypoi…"   30 minutes ago   Up 30 minutes   0.0.0.0:8000->80/tcp    vacation-plans-api-app-1
-   3b7e781f9d14   mysql:8.0.39           "docker-entrypoint.s…"   30 minutes ago   Up 30 minutes   0.0.0.0:3306->3306/tcp  vacation-plans-api-mysql-1
+   docker-compose down
    ```
 
-   Entre no contêiner da Aplicação(vacation-plans-api-app) e instale as dependências do Composer:
+   • Install PHP Dependencies<br><br>
+
+   Use the command `docker ps` to list the containers, you should see something like this:
    
    ```
-   docker exec -it <nome-ou-id-contêiner> bash
+   CONTAINER ID     IMAGE                   COMMAND                  CREATED          STATUS          PORTS                   NAMES
+   <container-id>   vacation-plans-api-app  "docker-php-entrypoi…"   30 minutes ago   Up 30 minutes   0.0.0.0:8000->80/tcp    <container-name>
+   <container-id>   mysql:8.0.39            "docker-entrypoint.s…"   30 minutes ago   Up 30 minutes   0.0.0.0:3306->3306/tcp  <container-name>
+   ```
+
+   Enter the application container and install the Composer dependencies:
+   
+   ```
+   docker exec -it <container-name-or-id> bash
    composer install
    ```
 
-   • Configuração do Ambiente
+3. **Configure the Application**
 
-   Ainda no contêiner da aplicação, copie o arquivo .env.example para .env.
+   Inside the application container, copy the `.env.example` file to `.env`:
+   
    ```
    cp .env.example .env
    ```
 
-   Dentro do arquivo .env, configure as váriaveis do banco de dados:
+   Configure the database variables in the `.env` file:
+   
    ```
    DB_CONNECTION=mysql
    DB_HOST=mysql
@@ -94,59 +104,63 @@ Certifique-se de que o Docker e o Docker Compose estejam funcionando corretament
    DB_PASSWORD=password
    ```
    
-   • Gerar a Chave da Aplicação
+   • Generate the Application Key
 
-   No mesmo contêiner, gere a chave da aplicação do Laravel:
+   Generate the Laravel application key:
    
    ```
    php artisan key:generate
    ```
    
-   • Executar as Migrações
+   • Run Migrations
 
-   Ainda dentro do contêiner, execute as migrações para configurar o banco de dados:
+   Run the migrations to set up the database:
 
    ```
    php artisan migrate
    ```
 
-   • Executar o Seeder
+   • Run the Seeder
 
-   E por fim, execute o seeder para gerar um usuário na tabela users, para futuramente gerar o token de acesso:
+   Run the seeder to create a user in the users table:
 
    ```
    php artisan db:seed
    ```
    
-5. **Acessar o Projeto**
+5. **Access the Project**
 
-   Após a configuração, a API estará disponível em http://localhost:8080 (ou a porta que você configurou no docker-compose.yml).
+   After setup, the API will be available at `http://localhost:8080` (or the port you configured in docker-compose.yml).
 
-   Você pode usar ferramentas como [Postman](https://www.postman.com/downloads/) ou [Insomnia](https://insomnia.rest/download) para testar os endpoints da API.
+   You can use tools like [Postman](https://www.postman.com/downloads/) or [Insomnia](https://insomnia.rest/download) to test the API endpoints.
 
 ---
 
 <!-- ---------------------------------------------------------------------- -->
 
-<!-- Autenticação: -->
-## Autenticação
+## Authentication
 
-OBS: Para evitar qualquer tipo de problema, inclua "application/json" no cabeçalho `Accept` de suas requisições.
+**NOTE**: To avoid issues, include "application/json" in the `Accept` header of your requests:
+
 ```
 Accept: application/json
 ```
 
-Para acessar os endpoints da API, você precisará de um token de autenticação. Abaixo estão os detalhes sobre como gerar o token. Inclua o token no cabeçalho `Authorization` de suas requisições:
+To access the API endpoints, you will need an authentication token. The API returns a [JWT](https://jwt.io/) token that should be used in subsequent requests. Below are details on how to generate the token. Include the token in the `Authorization` header of your requests:
+
 ```
-Authorization: Bearer {seu-token}
+Authorization: Bearer {your-token}
 ```
 
-#### Rotas para Autenticação
+#### Authentication Routes
 
-1. **Gerar Token de Acesso**<br>
-   • **Método:** POST<br>
+**NOTE**: I recommend using [Postman](https://www.postman.com/downloads/) to test the API.
+
+1. **Generate Access Token**<br>
+   • **Method:** POST<br>
    • **URL:** `/api/login`<br>
-   • **Corpo da Requisição:**<br>
+   • **Request Body:**<br>
+   
      ```
      {
        "email": "user@test.com",
@@ -154,13 +168,17 @@ Authorization: Bearer {seu-token}
        "device_name": "Postman"
      }
      ```
-   • **Resposta de Sucesso:**
+     
+   • **Success Response:**
+   
      ```
      {
-       "token": "{seu-token}"
+       "token": {your-token}
      }
      ```
-   • **Resposta Dados Inválidos:**
+     
+   • **Invalid Credentials Response:**
+   
      ```
      {
         "message": "The provided credentials are incorrect",
@@ -171,34 +189,59 @@ Authorization: Bearer {seu-token}
         }
      }
      ```
-     OBS: Certifique-se de utilizar o email:user@test.com e a senha: 12345 criadas ao utilizar o comando `php artisan db:seed`, e não se esqueça de enviar o device_name, se preferir          você pode alterar o email e a senha, para isso, basta você acessar na raiz do projeto database/seeders/DatabaseSeeder.php, troque os dados pelos de sua preferência e utilize o 
-     comando para rodar os seeders novamente, você pode também adicionar mais usuários, para isso basta trocar os dados em DatabaseSeeder.php e rodar novamente o comando `php artisan 
-     db:seed`, ou se preferir, você pode acessar o contêiner do MySQL.
+     
+     NOTE: Use the email `user@test.com` and password `12345` created when running the `php artisan db:seed` command, and don't forget to include the `device_name`. If you prefer, you 
+     can change the email and password by editing `database/seeders/DatabaseSeeder.php` in the project root, updating the data as desired, and running the seeders command again. You can 
+     also add more users by updating the data in `DatabaseSeeder.php` and running `php artisan db:seed` again, or by accessing the MySQL container.<br><br>
 
-     Acessando contêiner MySQL:
+     **Accessing MySQL Container**
 
-     Utilize o `docker ps` para listar seus conteiners, após isso identifique o nome ou id do contêiner MySQL e entre nele com o comando:
+     Use `docker ps` to list your containers, then identify the name or ID of the MySQL container and enter it with:
+   
      ```
-     docker exec -it <nome-ou-id-contêiner> bash
+     docker exec -it <container-name-or-id> bash
      ```
 
-     Após entrar no contêiner, utilize o comando:
+     After entering the container, use the command:
+   
      ```
      mysql -u root -p
      ```
 
-     Será necessário uma senha para entrar, a senha do usuário root está definida no arquivo `docker-compose.yml`, por padrão a senha é "root", você terá algo parecido com isto:
+     You will need a password to log in, the root user password is set in the `docker-compose.yml` file, "by default the password is `root`", you will see something like:
+   
      ```
-     Enter password: root
+     Enter password: "root"
      ```
 
-     Pronto, agora você tem acesso ao MySQL e lá você pode utilizar comandos SQL como bem entender.
-     
+     Inside MySQL, you can check if the `vacation_plans` database was created automatically with the command `SHOW DATABASES;`, you should see something like:
+
+     ```
+     +--------------------+
+     | Database           |
+     +--------------------+
+     | information_schema |
+     | mysql              |
+     | performance_schema |
+     | sys                |
+     | vacation_plans     |
+     +--------------------+
+     5 rows in set (0.00 sec)
+     ```
+
+     If the `vacation_plans` database is not created, you can create it using SQL commands within the container:
+
+     ```
+     CREATE DATABASE vacation_plans;
+     ```
+
+     After that, you have created the database, now just run the migrations with `php artisan migrate`.<br><br>
  
-3. **Recuperar usuário logado**<br>
-   • **Método:** GET<br>
+3. **Retrieve Logged-In User**<br>
+   • **Method:** GET<br>
    • **URL:** `/api/user`<br>
-   • **Resposta de Sucesso:**<br>
+   • **Success Response:**<br>
+   
      ```
      {
         "user": {
@@ -211,10 +254,12 @@ Authorization: Bearer {seu-token}
         }
      }
      ```
-4. **Realizar Logout**<br>
-   • **Método:** POST<br>
+     
+4. **Logout**<br>
+   • **Method:** POST<br>
    • **URL:** `/api/logout`<br>
-   • **Resposta de Sucesso:**<br>
+   • **Success Response:**<br>
+   
      ```
      {
         "message": "success"
@@ -225,85 +270,101 @@ Authorization: Bearer {seu-token}
 
 <!-- ---------------------------------------------------------------------- -->
 
-<!-- Uso: -->
-## Uso
+## Usage
 
-OBS: Para evitar qualquer tipo de problema, inclua "application/json" no cabeçalho `Accept` de suas requisições, inclua também o token no cabeçalho `Authorization`.
+**NOTE**: Include "application/json" in the `Accept` header of your requests and the token in the `Authorization` header:
+
 ```
 Accept: application/json
-Authorization: Bearer {seu-token} #Inclua o Bearer e em seguida dê um espaço e inclua seu token
+Authorization: Bearer {your-token} #Include Bearer and then a space and your token
 ```
 
-A API oferece vários endpoints para gerenciar planos de férias. Abaixo estão os detalhes sobre como interagir com cada um deles.
+The API offers several endpoints to manage vacation plans. Below are details on how to interact with each of them.
 
-#### Endpoints da API
+#### API Endpoints
 
-1. **Criar um Novo Plano de Férias**<br>
-   • **Método:** POST<br>
+1. **Create a New Vacation Plan**<br>
+   • **Method:** `POST`<br>
    • **URL:** `/api/vacation-plans`<br>
-   • **Corpo da Requisição:**<br>
+   • **Request Body:**<br>
+   
      ```
      {
-        "title": "Férias de Verão",
-        "description": "Plano para as férias de verão",
-        "date": "2024-07-01",
-        "location": "Praia",
-        "participants": "João, Maria"
+       "title": "Summer Vacation",
+       "description": "Plan for summer vacation",
+       "date": "2024-07-01",
+       "location": "Beach",
+       "participants": "John, Mary"
      }
      ```
-   • **Resposta de Sucesso:**<br>
+     
+   • **Success Response:**<br>
      **Status: 201**
+   
      ```
      {
-        "title": "Férias de Verão",
-        "description": "Plano para as férias de verão",
-        "date": "2024-07-01",
-        "location": "Praia",
-        "participants": "João, Maria",
-        "updated_at": "2024-08-16T00:00:00.000000Z",
-        "created_at": "2024-08-16T00:00:00.000000Z",
-        "id": 1
+       "id": 1,
+       "title": "Summer Vacation",
+       "description": "Plan for summer vacation",
+       "date": "2024-07-01",
+       "location": "Beach",
+       "participants": "John, Mary",
+       "created_at": "2024-08-16T00:00:00.000000Z",
+       "updated_at": "2024-08-16T00:00:00.000000Z"
      }
      ```
-2. **Recuperar Todos os Planos de Férias**<br>
-   • **Método:** GET<br>
+     
+2. **Retrieve All Vacation Plans**<br>
+   • **Method:** `GET`<br>
    • **URL:** `/api/vacation-plans`<br>
-   • **Resposta de Sucesso:**<br>
+   • **Success Response:**<br>
      **Status: 200**
+   
      ```
      [
         {
-            "id": 1,
-            "title": "Férias de Verão",
-            "description": "Plano para as férias de verão",
-            "date": "2024-07-01",
-            "location": "Praia",
-            "participants": "João, Maria",
-            "created_at": "2024-08-16T16:39:55.000000Z",
-            "updated_at": "2024-08-16T16:39:55.000000Z"
-        }
+           "id": 1,
+           "title": "Summer Vacation",
+           "description": "Plan for summer vacation",
+           "date": "2024-07-01",
+           "location": "Beach",
+           "participants": "John, Mary",
+           "created_at": "2024-08-16T00:00:00.000000Z",
+           "updated_at": "2024-08-16T00:00:00.000000Z"
+         }
      ]
      ```
-3. **Recuperar um Plano de Férias Específico por ID**<br>
-   • **Método:** GET<br>
-   • **URL:** `/api/vacation-plans/{id}`<br>
-   • **Parâmetros:**<br>
-     • `id`: ID do plano de férias<br>
-   • **Resposta de Sucesso:**<br>
-     **Status: 200**
+
+   • **Response Holiday Plan(s) Not Found:**<br>
+     **Status: 404**
+   
      ```
      {
-        "id": 1,
-        "title": "Férias de Verão",
-        "description": "Plano para as férias de verão",
-        "date": "2024-07-01",
-        "location": "Praia",
-        "participants": "João, Maria",
-        "created_at": "2024-08-16T16:39:55.000000Z",
-        "updated_at": "2024-08-16T16:39:55.000000Z"
+        "message": "No holiday plans found"
      }
      ```
-   • **Resposta Plano de Férias não encontrado:**<br>
+     
+3. **Retrieve a Single Vacation Plan**<br>
+   • **Method:** `GET`<br>
+   • **URL:** `/api/vacation-plans/{id}`<br>
+   • **Parameters:** Holiday plan ID<br>
+   • **Success Response:**<br>
+     **Status: 200**
+   
+     ```
+     {
+       "id": 1,
+       "title": "Summer Vacation",
+       "description": "Plan for summer vacation",
+       "date": "2024-07-01",
+       "location": "Beach",
+       "participants": "John, Mary",
+       "created_at": "2024-08-16T00:00:00.000000Z",
+       "updated_at": "2024-08-16T00:00:00.000000Z"
+     }
+     ```
+     
+   • **Response Vacation Plan Not Found:**<br>
      **Status: 404**
      ```
      {
@@ -311,107 +372,118 @@ A API oferece vários endpoints para gerenciar planos de férias. Abaixo estão 
      }
      ```
      
-4. **Atualizar um Plano de Férias Existente**<br>
-   • **Método:** PUT<br>
+4. **Update a Vacation Plan**<br>
+   • **Method:** `PUT`<br>
    • **URL:** `/api/vacation-plans/{id}`<br>
-   • **Parâmetros:**<br>
-     • `id`: ID do plano de férias<br>
-   • **Corpo da Requisição:**
+   • **Parameters:** Holiday plan ID<br>
+   • **Request Body:**
+   
      ```
      {
-       "title": "Férias de Inverno",
-       "description": "Plano atualizado para as férias de inverno",
+       "title": "Winter Vacation",
+       "description": "Updated plan for winter vacation",
        "date": "2024-12-01",
-       "location": "Montanhas",
+       "location": "Mountains",
        "participants": "Ana, Pedro"
      }
      ```
-   • **Resposta de Sucesso:**<br>
+     
+   • **Success Response:**<br>
      **Status: 200**
+   
      ```
      {
         "id": 1,
-        "title": "Férias de Inverno",
-        "description": "Plano atualizado para as férias de inverno",
+        "title": "Winter Vacation",
+        "description": "Updated plan for winter vacation",
         "date": "2024-12-01",
-        "location": "Montanhas",
+        "location": "Mountains",
         "participants": "Ana, Pedro",
-        "created_at": "2024-08-16T16:39:55.000000Z",
-        "updated_at": "2024-08-16T16:47:30.000000Z"
+        "created_at": "2024-08-16T00:00:00.000000Z",
+        "updated_at": "2024-08-16T00:00:00.000000Z"
      }
      ```
-   • **Resposta Plano de Férias não encontrado:**<br>
+     
+   • **Response Vacation Plan Not Found:**<br>
      **Status: 404**
+   
      ```
      {
         "message": "Unable to update. Holiday plan not found"
      }
      ```
 
-5. **Atualizar um Plano de Férias Parcialmente**<br>
-   • **Método:** PATCH<br>
+5. **Partially Update a Holiday Plan**<br>
+   • **Method:** `PATCH`<br>
    • **URL:** `/api/vacation-plans/{id}`<br>
-   • **Parâmetros:**<br>
-     • `id`: ID do plano de férias<br>
-   • **Corpo da Requisição:**
+   • **Parameters:** Holiday plan ID<br>
+   • **Request Body:**
+   
      ```
      {
-         "description": "Plano atualizado para as férias de inverno"
+         "description": "Updated plan for winter vacation"
      }
      ```
-   • **Resposta de Sucesso:**<br>
+     
+   • **Success Response:**<br>
      **Status: 200**
+   
      ```
      {
         "id": 1,
-        "title": "Férias de Verão",
-        "description": "Plano atualizado para as férias de inverno",
+        "title": "Summer Vacation",
+        "description": "Updated plan for winter vacation",
         "date": "2024-07-01",
-        "location": "Praia",
+        "location": "Beach",
         "participants": "João, Maria",
-        "created_at": "2024-08-16T16:39:55.000000Z",
-        "updated_at": "2024-08-16T17:08:56.000000Z"
+        "created_at": "2024-08-16T00:00:00.000000Z",
+        "updated_at": "2024-08-16T00:00:00.000000Z"
      }
      ```
-   • **Resposta Plano de Férias não encontrado:**<br>
+     
+   • **Response Vacation Plan Not Found:**<br>
      **Status: 404**
+   
      ```
      {
         "message": "Unable to update. Holiday plan not found"
      }
      ```
      
-6. **Excluir um Plano de Férias**<br>
-   • **Método:** DELETE<br>
+6. **Delete a Vacation Plan**<br>
+   • **Method:** `DELETE`<br>
    • **URL:** `/api/vacation-plans/{id}`<br>
-   • **Parâmetros:**<br>
-     • `id`: ID do plano de férias<br>
-   • **Resposta de Sucesso:**<br>
+   • **Parameters:** Holiday plan ID<br>
+   • **Success Response:**<br>
      **Status: 200**
+    
      ```
      {
        "message": "Plan deleted"
      }
      ```
-   • **Resposta Plano de Férias não encontrado:**<br>
+     
+   • **Response Vacation Plan Not Found:**<br>
      **Status: 404**
+   
      ```
      {
         "message": "Unable to delete. Holiday plan not found"
      }
      ```
      
-7. **Gerar PDF para um Plano de Férias Específico**<br>
-   • **Método:** GET<br>
+7. **Generate PDF for a Vacation Plan**<br>
+   • **Method:** `GET`<br>
    • **URL:** `/api/vacation-plans/{id}/pdf`<br>
-   • **Parâmetros:**<br>
-     • `id`: ID do plano de férias<br>
-   • **Resposta de Sucesso:**<br>
+   • **Parameters:** Holiday plan ID<br>
+   • **Success Response:**<br>
      **Status: 200**<br>
-     O PDF será gerado e retornado como um download. Certifique-se de ter um visualizador de PDF para visualizar o documento.
      
-   • **Resposta Plano de Férias não encontrado:**<br>
+     #### The PDF will be generated and returned as a download. Make sure you have a PDF viewer to view the document.<br><br>
+     
+   • **Response Vacation Plan Not Found:**<br>
      **Status: 404**
+     
      ```
      {
         "message": "Unable to generate pdf. Holiday plan not found"
@@ -422,65 +494,109 @@ A API oferece vários endpoints para gerenciar planos de férias. Abaixo estão 
 
 <!-- ---------------------------------------------------------------------- -->
 
-<!-- Testes: -->
-## Testes
+## Testing
 
-Para executar os testes unitários, utilize o PHPUnit:
+The file `HolidayPlanTest.php` contains unit tests that validate the functionality of the key endpoints of the `vacation-plans-api`. These tests ensure that the creation, reading, updating, deletion, and PDF generation features of holiday plans are working correctly. Below, I will explain the main tests contained in this file.
+
+1. **Authentication and Initial Setup**<br>
+   • `setUp()`: This method is executed before each test. It creates a user using a factory and authenticates this user using Sanctum, ensuring that all subsequent tests can perform 
+   authenticated actions.<br>
+
+2. **Creation Tests**<br>
+   • `can_i_create_a_vacation_plan()`: This test checks if a new holiday plan can be created correctly. It sends a `POST` request to `/api/vacation-plans` with the plan data and 
+   validates if the API returns a 201 Created status and the correct data. Additionally, it checks if the data has been persisted in the database.<br>
+
+3. **Reading Tests**<br>
+   • `can_i_get_all_vacation_plans()`: This test checks if all holiday plans can be retrieved from the API. It creates a holiday plan and sends a `GET` request to `/api/vacation-plans`, 
+   validating if the response has a 200 OK status.<br>
+
+   • `can_i_get_single_vacation_plan()`: This test checks if a specific holiday plan can be retrieved. It creates a plan, makes a `GET` request to `/api/vacation-plans/{id}`, and 
+   validates if the returned data is correct.<br>
+
+4. **Updating Tests**<br>
+   • `can_i_update_vacation_plan()`: This test checks if an existing holiday plan can be updated. It sends a `PUT` request to `/api/vacation-plans/{id}` with new data and verifies if 
+   the API returns a 200 OK status and if the data has been updated in the database.<br>
+
+   • `can_i_partially_update_vacation_plan()`: Similar to the previous test, but this one uses a `PATCH` request to partially update a holiday plan. It ensures that only the provided       fields are updated while the others remain unchanged.<br>
+
+5. **Deletion Test**<br>
+   • `can_i_delete_vacation_plan()`: This test checks if a holiday plan can be deleted. It creates a plan, sends a `DELETE` request to `/api/vacation-plans/{id}`, and validates if the 
+   plan has been removed from the database and if the API returns a 200 OK status.<br>
+
+6. **PDF Generation Test**<br>
+   • `can_i_generate_pdf_for_vacation_plan()`: This test checks if the API can correctly generate a PDF with the details of a holiday plan. It makes a `GET` request to `/api/vacation-plans/{id}/pdf` and validates if the response contains a PDF file (content-type: application/pdf) and if the status is 200 OK.<br>
+
+**Summary**<br>
+
+These tests ensure that each functionality of the API works as expected in different scenarios. They cover the main flows of creation, reading, updating, deletion, and PDF generation, ensuring that the API is robust and reliable. Each test focuses on a specific aspect, and the use of assertions validates both the API behavior and data persistence in the database.
+
+Use `docker ps` to list the containers:
+
 ```
-docker-compose exec <nome-ou-id-contêiner> bash
+CONTAINER ID     IMAGE                   COMMAND                  CREATED          STATUS          PORTS                   NAMES
+<container-id>   vacation-plans-api-app  "docker-php-entrypoi…"   30 minutes ago   Up 30 minutes   0.0.0.0:8000->80/tcp    <container-name>
+<container-id>   mysql:8.0.39            "docker-entrypoint.s…"   30 minutes ago   Up 30 minutes   0.0.0.0:3306->3306/tcp  <container-name>
+```
+
+To run the unit tests, use PHPUnit:
+
+```
+docker exec -it <container-name-or-id> bash
 php artisan test
 ```
 
----
-
-<!-- ---------------------------------------------------------------------- -->
-
-<!-- Contribuição: -->
-## Contribuição
-
-1. Faça um **fork** do projeto.
-2. Crie uma nova branch com as suas alterações: `git checkout -b my-feature`
-3. Salve as alterações e crie uma mensagem de commit contando o que você fez: `git commit -m "feature: My new feature"`
-4. Envie as suas alterações: `git push origin my-feature`
+#### Tests can be customized, and adding new test cases is a good practice to cover more scenarios, such as testing authentication failures or responses to malformed data, etc.
 
 ---
 
 <!-- ---------------------------------------------------------------------- -->
 
-<!-- MODELO DE TECNOLOGIAS -->
-## Tecnologias
+## Contribution
 
-As seguintes ferramentas foram usadas na construção do projeto:
+1. Fork the project.
+2. Create a new branch with your changes: `git checkout -b my-feature`.
+3. Save your changes and create a commit explaining what was changed: `git commit -m "feature: My new feature"`.
+4. Push your changes to the main branch: `git push origin my-feature`.
+5. Open a pull request on the original repository and wait for the review.
+
+#### Contributions are always welcome! Feel free to open issues to report bugs, suggest improvements, or discuss new features.
+
+---
+
+<!-- ---------------------------------------------------------------------- -->
+
+## Technologies
+
+The following tools were used in the construction of the project:
 
 #### **Back-End**  ([Laravel](https://laravel.com/))
 
-• **[Laravel Sanctum](https://laravel.com/docs/11.x/sanctum)** - Para autenticação via tokens OAuth.<br>
-• **[Composer](https://getcomposer.org/)** - Gerenciador de dependências PHP.
+• **[Laravel Sanctum](https://laravel.com/docs/11.x/sanctum)** - For OAuth token authentication.<br>
+• **[Composer](https://getcomposer.org/)** - PHP dependency manager.
 
-#### **Banco de Dados**
+#### **Database**
 
-• **[MySQL](https://www.mysql.com/)** - Sistema de gerenciamento de banco de dados.
+• **[MySQL](https://www.mysql.com/)** - Database management system.
 
-#### **Containerização** ([Docker](https://www.docker.com/))
+#### **Containerization** ([Docker](https://www.docker.com/))
 
-• **[Docker](https://www.docker.com/)** - Para containerização do ambiente de desenvolvimento.<br>
-• **[Docker Compose](https://docs.docker.com/compose/)** - Para orquestração de múltiplos contêineres.
+• **[Docker](https://www.docker.com/)** - For containerizing the development environment.<br>
+• **[Docker Compose](https://docs.docker.com/compose/)** - For orchestrating multiple containers.
 
-#### **Gerenciamento de Dependências e Build**
+#### **Dependency Management and Build**
 
-• **[PHP](https://www.php.net/)** - Linguagem de programação usada no back-end.<br>
-• **[PHPUnit](https://phpunit.de/)** - Framework de testes para PHP.
+• **[PHP](https://www.php.net/)** - Programming language used in the back-end.<br>
+• **[PHPUnit](https://phpunit.de/)** - Testing framework for PHP.
 
-#### **Documentação e Testes**
+#### **Documentation and Testing**
 
-• **[Postman](https://www.postman.com/)** - Para testar os endpoints da API.
+• **[Postman](https://www.postman.com/)** - For testing API endpoints.
 
 ---
 
 <!-- ---------------------------------------------------------------------- -->
 
-<!-- AUTOR -->
-## Autor
+## Author
 
 <a href="https://www.linkedin.com/in/gabriel-veloso-2183b82b6/">
 Gabriel Veloso Pinheiro</a>
@@ -492,10 +608,9 @@ Gabriel Veloso Pinheiro</a>
 
 <!-- ---------------------------------------------------------------------- -->
 
-<!-- LICENÇA -->
-## Licença
+## License
 
-Este projeto esta sobe a licença [MIT](./LICENSE).
+This project is licensed under the [MIT](./LICENSE) License.
 
-Feito por Gabriel Veloso Pinheiro👋🏽 [Entre em contato!](https://www.linkedin.com/in/gabriel-veloso-2183b82b6/)
+Made by Gabriel Veloso Pinheiro👋🏽 [Get in touch!](https://www.linkedin.com/in/gabriel-veloso-2183b82b6/)
 
